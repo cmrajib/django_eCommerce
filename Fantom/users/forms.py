@@ -26,9 +26,9 @@ class UserProfileForm(forms.ModelForm):
         self.helper.form_method = 'post'
         self.helper.field_class = 'mt-10'
         self.helper.layout = Layout(
-            Field("birth_day",css_class="single-input"),
-            Field("bio",css_class="single-input"),
-            Field("image",css_class="single-input"),
+            Field("email",css_class="single-input"),
+            Field("password1",css_class="single-input"),
+            Field("password2",css_class="single-input"),
 
         )
 

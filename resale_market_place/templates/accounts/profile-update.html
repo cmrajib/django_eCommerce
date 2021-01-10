@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+    <div id="page-wrapper" class="sign-in-wrapper">
+        <div class="graphs">
+            <div class="sign-in-form">
+                <div class="sign-in-form-top">
+                    <h1>Profile</h1>
+                </div>
+
+                 <form method="POST">
+                <!--    {% crispy form %}-->
+                     {{ form|crispy }}
+                    {% csrf_token %}
+                     <button type="submit" class="genric-btn success circle"> Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,5 +1,6 @@
 
 ###########################################
+# You have to write the code in settings.py AUTH_USER_MODEL = 'App_Login.User'
 # Before running python manage.py  migrate command create this model
 # After creating this model run
 # 1. python manage.py makemigrations App_Login

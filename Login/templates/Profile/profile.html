@@ -1,0 +1,23 @@
+
+{% load crispy_forms_tags %}
+
+<h2> Your profile</h2>
+
+{% if single_profile %}
+  <img src="{{ single_profile.image.url }}" class="rounded-circle" width="120px">
+  <br>
+  <a href="{% url 'Profile:change_pro_pic' %}" class="btn btn-info btn-sm">Change Profile Picture</a>
+{% else %}
+<!--  <img src="/media/download.jpg" class="rounded-circle" width="120px">-->
+<!--  <br>-->
+  <a href="{% url 'Profile:add_pro_pic' %}" class="btn btn-info btn-sm">Change Profile Picture</a>
+{% endif %}
+
+
+<p>User Name: {{ single_profile.username }}</p>
+<p>Email: {{ user.email }}</p>
+<p>Name: {{ single_profile.full_name }} </p>
+<br>
+
+<a href="{% url 'Profile:user_change' %}" class="btn btn-warning">Change Profile</a>
+
