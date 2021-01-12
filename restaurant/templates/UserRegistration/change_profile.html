@@ -1,0 +1,16 @@
+
+{% load crispy_forms_tags %}
+
+
+
+
+    <form method="POST">
+<!--        {% crispy form %}-->
+         {{ form|crispy }}
+        {% csrf_token %}
+
+        <input type="submit" name="" value="Update Profile" class="btn">
+    </form>
+
+    <br>
+    

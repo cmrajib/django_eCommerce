@@ -1,0 +1,239 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Blog - Detail
+{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+
+<main>
+      <!--? Hero Start -->
+      <div class="slider-area2">
+         <div class="slider-height2 d-flex align-items-center">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-xl-12">
+                           <div class="hero-cap hero-cap2 text-center">
+                              <h2>Blog Details</h2>
+                           </div>
+                     </div>
+                  </div>
+               </div>
+         </div>
+      </div>
+      <!-- Hero End -->
+      <!--================Blog Area =================-->
+      <section class="blog_area single-post-area section-padding">
+         <div class="container">
+            <div class="row">
+
+
+
+
+
+                {% if post_detail %}
+
+
+
+               <div class="col-lg-8 posts-list">
+                  <div class="single-post">
+                     <div class="feature-img">
+                        <img class="img-fluid" src="{{ post_detail.image.url }}" alt="">
+                     </div>
+                     <div class="blog_details">
+                        <h2 style="color: #2d2d2d;">{{ post_detail.title }}
+                        </h2>
+                        <ul class="blog-info-link mt-3 mb-4">
+
+
+                            {% for tag in post_detail.tags.all %}
+                           <li><a href="#"><i class="fa fa-user"></i> {{ tag.name }}</a></li>
+
+                            {% endfor %}
+
+
+
+                            <li><a href="#"><i class="fa fa-comments"></i> {{ post_detail.comment_count }} Comments</a></li>
+                        </ul>
+                        <p class="excert">
+                            {{ post_detail.content }}
+                        </p>
+                        <div class="quote-wrapper">
+                           <div class="quotes">
+                              {{ post_detail.detail_content }}
+                           </div>
+                        </div>
+
+                     </div>
+                  </div>
+                  <div class="navigation-top">
+
+
+<!--                     Previous and next post navigation-->
+                     <div class="navigation-area">
+                        <div class="row">
+
+                           <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+
+                              {% if Previous_widget_post %}
+
+
+                              <div class="thumb">
+                                 <a href="{% url 'blog:post_detail' Previous_widget_post.id %}">
+                                    <img class="img-fluid" src="{{ Previous_widget_post.image.url }}" alt=""
+                                       style="width:100px;">
+                                 </a>
+                              </div>
+                              <div class="arrow">
+                                 <a href="{% url 'blog:post_detail' Previous_widget_post.id %}">
+                                    <span class="lnr text-white ti-arrow-left"></span>
+                                 </a>
+                              </div>
+                              <div class="detials">
+                                 <p>Prev Post</p>
+                                 <a href="{% url 'blog:post_detail' Previous_widget_post.id %}">
+                                    <h4 style="color: #2d2d2d;">{{ Previous_widget_post.title|slice:":10" }}</h4>
+                                 </a>
+                              </div>
+
+                              {% endif %}
+
+                           </div>
+
+
+
+
+                           <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+
+
+                              {% if next_widget_post %}
+
+                              <div class="detials">
+                                 <p>Next Post</p>
+                                 <a href="{% url 'blog:post_detail' next_widget_post.id %}">
+                                    <h4 style="color: #2d2d2d;">  {{ next_widget_post.title|slice:":10" }}  </h4>
+                                 </a>
+                              </div>
+                              <div class="arrow">
+                                 <a href="{% url 'blog:post_detail' next_widget_post.id %}">
+                                    <span class="lnr text-white ti-arrow-right"></span>
+                                 </a>
+                              </div>
+                              <div class="thumb">
+                                 <a href="{% url 'blog:post_detail' next_widget_post.id %}">
+                                    <img class="img-fluid" src="{{ next_widget_post.image.url }}" alt=""
+                                       style="width:100px;">
+                                 </a>
+                              </div>
+
+                               {% endif %}
+
+
+
+                           </div>
+
+
+
+                        </div>
+                     </div>
+
+<!--                     Previous and next post navigation-->
+
+                  </div>
+                  <div class="blog-author">
+                     <div class="media align-items-center">
+                        <img src="{{ post_detail.author.image.url }}" alt="">
+                        <div class="media-body">
+                           <a href="#">
+                              <h4>{{ post_detail.author }}</h4>
+                           </a>
+                           <p>{{ post_detail.detail_content }}</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="comments-area">
+                     <h4>{{ post_detail.comment_count }} Comments</h4>
+
+
+
+                     {% if comments %}
+
+                     {% for comment in comments %}
+
+                     <div class="comment-list">
+                        <div class="single-comment justify-content-between d-flex">
+                           <div class="user justify-content-between d-flex">
+                              <div class="thumb">
+                                 <img src="{{ comment.user.image.url }}" alt="">
+                              </div>
+                              <div class="desc">
+                                 <p class="comment">
+                                    {{ comment.content }}
+                                 </p>
+                                 <div class="d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                       <h5>
+                                          <a href="#">{{ comment.user.full_name }}</a>
+                                       </h5>
+                                       <p class="date">{{ comment.created }} </p>
+                                    </div>
+
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                     {% endfor %}
+
+                     {% endif %}
+
+
+                  </div>
+
+
+                  <div class="comment-form">
+                     <h4>Leave a Reply</h4>
+                     <form class="form-contact comment_form" method="post" id="commentForm">
+                        {% csrf_token %}
+                        <div class="row">
+                          {{ comment_form }}
+
+<!--                           <div class="col-12">-->
+<!--                              <div class="form-group">-->
+<!--                                 <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"-->
+<!--                                    placeholder="Write Comment"></textarea>-->
+<!--                              </div>-->
+<!--                           </div>-->
+
+
+                        </div>
+                        <div class="form-group">
+                           <button type="submit"
+                                  style="margin-top:30px;"
+                                   class="button button-contactForm btn_1 boxed-btn">Post Comment</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+
+
+
+
+
+            {% endif %}
+
+
+                {% include 'right_side.html' %}
+
+
+            </div>
+         </div>
+      </section>
+      <!--================ Blog Area end =================-->
+   </main>
+
+{% endblock %}
